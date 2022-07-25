@@ -9,7 +9,13 @@ module.exports =  {
     Query :{
   
     users:() => users,
-    user : (_,{id}) => users.find(user => user.id === id)
+    user : (_,{id},{email}) => {
+        console.log('=====',email);
+        // if(!email){
+        //     throw new Error('Access Denied! Please login to continue!');
+        // }
+        return users.find(user => user.id === id)}
+
 
     },
 
