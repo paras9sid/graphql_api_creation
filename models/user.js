@@ -13,15 +13,12 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    tasks:[
+    myCar:[
         {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Task'
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Car'
         }
     ]
-},
-    { 
-        timestamps : true   
 });
 
 module.exports = mongoose.model('User', userSchema);

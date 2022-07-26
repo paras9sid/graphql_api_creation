@@ -7,13 +7,13 @@ module.exports = gql`
     }
 
     input createCarInput{
-        reg_num:String!
-        name:String!
+        reg_num:ID!
         make:String!
         model:String!
+        color:String!
     }
     
-    extend type Mutation {
+    extend type Mutation{
         createCar(input: createCarInput!):Car
     }
     

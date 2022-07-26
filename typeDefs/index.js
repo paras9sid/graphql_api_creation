@@ -1,15 +1,16 @@
 const { gql } = require('apollo-server-express');
 
 const userTypeDefs = require('./user');
-const taskTypeDefs = require('./task');
 const carTypeDefs = require('./car');
 
+
+// _:String = placeholder as fields cant be empty
 const typeDefs = gql`
     type Query{
         _: String
     }
 
-    type Mutation {
+    type Mutation{
         _: String
     }
 `;
@@ -17,6 +18,5 @@ const typeDefs = gql`
 module.exports = [
     typeDefs,
     userTypeDefs,
-    taskTypeDefs,
     carTypeDefs
 ]

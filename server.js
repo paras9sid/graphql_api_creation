@@ -9,26 +9,22 @@ const db = require('./config/mongoose');
 const {verifyUser} = require('./helper');
 const jwt = require('jsonwebtoken');
 
+
+// dotEnv.config();
+
 // - await with async always -- start server function
-
-dotEnv.config();
-
-async function startApolloServer (typeDefs, resolvers) {
+async function startApolloServer (typeDefs, resolvers)  {
     const apolloServer = new ApolloServer({
          typeDefs,
          resolvers,
-         context :  {
-            email:"test@gmail.com"
-            
-         } 
-        //  context : async(req)=> {
-        //     // email:"test@gmail.com"
-        //     await verifyUser(req);
-        //     return {
-        //         email:req.email
-        //     }
-        //  } 
-    })
+        context:async({ req }) => {
+          await verifyUser(req)
+          return{
+            email:req.email
+          }
+         }
+       
+    });
     await apolloServer.start()
    
     const app = express()
@@ -47,6 +43,6 @@ async function startApolloServer (typeDefs, resolvers) {
         console.log(`GraphQL endpoint: ${apolloServer.graphqlPath}`)
       })
     )
-  }  
+}
    
 startApolloServer(typeDefs, resolvers)
