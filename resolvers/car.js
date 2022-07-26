@@ -5,16 +5,28 @@ const { users , myCar} = require('../constants');
 
 const Car = require('../models/car');
 const User = require('../models/user');
-const {isAuthenticated} = require('./middleware');
+const {isAuthenticated,isTaskOwner} = require('./middleware');
 
 module.exports = {
     Query :{
-       myCar:() => {
+       myCar:combineResolvers(isAuthenticated, async(_,__,{ loggedInUserId }) => {
+        try{
+        const myCar = await Car.find({ user: loggedInUserId });
         return myCar;
-    },
-        myCarByNumber : (_,{reg_num}) => {
-            return myCar.find(myCarByNumber => myCarByNumber.reg_num === reg_num) 
-        },
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
+    }),
+        myCarByNumber : combineResolvers(isAuthenticated,async(_,{reg_num}) => {
+            try{
+            const myCarByNumber = await Car.findById(reg_num);
+            return myCarByNumber;
+            }catch(error){
+                console.log(error);
+                throw error;
+            }
+        }),
     },
     Car:{
         user:({userId}) => {
@@ -40,9 +52,18 @@ module.exports = {
         })
     },
     Car:{
-        user:({ userId }) => {
-            return users.filter(user => user.id === userId)
+        user:async(parent)=>{
+            try{
+                const user = await User.findById(parent.user);
+                return user;
+            }catch(error){
+                console.log(error);
+                throw error;
+            }
         }
+        // user:({ userId }) => {
+        //     return users.filter(user => user.id === userId)
+        // }
     } 
 
 }

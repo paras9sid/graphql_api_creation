@@ -17,10 +17,11 @@ async function startApolloServer (typeDefs, resolvers)  {
     const apolloServer = new ApolloServer({
          typeDefs,
          resolvers,
-        context:async({ req }) => {
+         context:async({ req }) => {
           await verifyUser(req)
           return{
-            email:req.email
+            email:req.email,
+            loggedInUserId:req.loggedInUserId
           }
          }
        

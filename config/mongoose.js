@@ -12,3 +12,7 @@ db.on('error',console.error.bind(console,'error in connection'));
 db.once('open',function(){
     console.log('successfully connected to the database');
 });
+
+module.exports.isValidObjectId = (id) => {
+    return mongoose.Types.ObjectId.isValid(id); // will return boolean value
+}

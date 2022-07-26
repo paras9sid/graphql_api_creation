@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const carSchema = new mongoose.Schema({
     reg_num:{
-        type:Number,
+        type:String,
         required:true
     },
     make:{

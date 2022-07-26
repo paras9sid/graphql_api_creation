@@ -7,7 +7,7 @@ module.exports = gql`
     }
 
     input createCarInput{
-        reg_num:ID!
+        reg_num:String!
         make:String!
         model:String!
         color:String!
@@ -18,7 +18,7 @@ module.exports = gql`
     }
     
     type Car{
-        reg_num:ID!
+        reg_num:String!
         make:String!
         model:String!
         color:String!

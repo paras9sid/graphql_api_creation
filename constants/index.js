@@ -1,4 +1,4 @@
-//dummy data already feeded
+//dummy data already feeded to check query working in graphql browser editor
 
 module.exports.users=[
     {id:"1",name:"kevin",email:"kevin@gmail.com"},
